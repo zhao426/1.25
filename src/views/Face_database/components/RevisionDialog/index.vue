@@ -288,12 +288,11 @@ export default {
             // 暂时死值
             creator: this.name,
             faceLibraryAttribute: _self.data_val.Attribute,
-            libCode: _self.data_val.libCode[_self.data_val.libCode.length - 1]
+            libCode: _self.data_val.libCode[0]
           },
           AppInfo: { AppId: "1", DeviceId: "1" },
           Description: "1"
         };
-
         if (this.id == "") {
           addFaceLibrarys(form_Data)
             .then(response => {
@@ -404,28 +403,6 @@ export default {
             _self.data_val.Status = datas[0].faceLibraryStatus + "";
             _self.data_val.Mode = datas[0].serviceMode + "";
             _self.data_val.Attribute = datas[0].faceLibraryAttribute;
-
-            // axios
-            //   .get(
-            //       process.env.VUE_APP_BASE_APIS+"tunano/ldc/library/v1/ldc/Organization/libCode/" +
-            //       datas[0].libCode,
-            //     {
-            //       headers: {
-            //         Authorization: "Bearer " + lists //token换成从缓存获取
-            //       }
-            //     }
-            //   )
-            //   .then(request => {
-            //     let resdata = request.data.result;
-            //     if (resdata.masterId) {
-            //       constval = resdata.relativeFatherLibCodeNode;
-            //       constval.push(resdata.isilCode);
-            //       _self.data_val.libCode = constval;
-            //     } else {
-            //       constval.push(resdata.isilCode);
-            //       _self.data_val.libCode = constval;
-            //     }
-            //   });
             Library_enquiry(datas[0].libCode).then(response => {
               let data = response.data.result[0].libCode;
               _self.data_val.libCode = data;

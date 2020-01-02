@@ -142,20 +142,20 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Pagination from '@/components/Pagination' // secondary
-import ServiceDialog from './components/ServiceDialog' //详情弹框组建
-import RevisionDialog from './components/RevisionDialog' //编辑弹框组建
-import { FaceLibrarysData, FaceLdelete } from '@/api/FaceLibrarys' //详情数据请求
+import { mapGetters } from "vuex";
+import Pagination from "@/components/Pagination"; // secondary
+import ServiceDialog from "./components/ServiceDialog"; //详情弹框组建
+import RevisionDialog from "./components/RevisionDialog"; //编辑弹框组建
+import { FaceLibrarysData, FaceLdelete } from "@/api/FaceLibrarys"; //详情数据请求
 export default {
   components: { Pagination, ServiceDialog, RevisionDialog },
-  name: 'Face_library_list',
+  name: "Face_library_list",
   data() {
     return {
       table_loading: true,
-      servic_id: '',
-      select: '',
-      The_query: '',
+      servic_id: "",
+      select: "",
+      The_query: "",
       total: 50,
       tableData: [],
       listQuery: {
@@ -164,36 +164,36 @@ export default {
         importance: undefined,
         title: undefined,
         type: undefined,
-        sort: '+id',
-        forid: ''
+        sort: "+id",
+        forid: ""
       },
       //搜索人脸库名字
-      facename: '',
+      facename: "",
       // 搜索人脸库ID
-      faceID: '',
+      faceID: "",
       show: false,
       revisionshow: false,
-      a1: '1'
-    }
+      a1: "1"
+    };
   },
   methods: {
     grabble() {
-      let _self = this
-      _self.table_loading = true
-      _self.listQuery.page = 1
+      let _self = this;
+      _self.table_loading = true;
+      _self.listQuery.page = 1;
       // 搜索内容
-      if (_self.select != '') {
-        if (_self.select == '1') {
-          _self.faceID = _self.The_query
-          _self.facename = ''
-        } else if (_self.select == '2') {
-          _self.faceID = ''
-          _self.facename = _self.The_query
+      if (_self.select != "") {
+        if (_self.select == "1") {
+          _self.faceID = _self.The_query;
+          _self.facename = "";
+        } else if (_self.select == "2") {
+          _self.faceID = "";
+          _self.facename = _self.The_query;
         }
       }
       FaceLibrarysData(
-        '',
-        '',
+        "",
+        "",
         _self.faceID,
 
         _self.facename,
@@ -201,138 +201,138 @@ export default {
         _self.listQuery.limit
       )
         .then(response => {
-          _self.table_loading = false
-          _self.total = response.data.result.totalCount
-          _self.tableData = response.data.result.list
+          _self.table_loading = false;
+          _self.total = response.data.result.totalCount;
+          _self.tableData = response.data.result.list;
 
           // 序号
         })
         .catch(function(error) {
-          _self.table_loading = false
+          _self.table_loading = false;
           // self.$message.error("网络好像有点问题！");
-        })
+        });
     },
     // 请求
     getData() {
-      let _self = this
-      _self.table_loading = true
+      let _self = this;
+      _self.table_loading = true;
       // 搜索内容
-      if (_self.select != '') {
-        if (_self.select == '1') {
-          _self.faceID = _self.The_query
-          _self.facename = ''
-        } else if (_self.select == '2') {
-          _self.faceID = ''
-          _self.facename = _self.The_query
+      if (_self.select != "") {
+        if (_self.select == "1") {
+          _self.faceID = _self.The_query;
+          _self.facename = "";
+        } else if (_self.select == "2") {
+          _self.faceID = "";
+          _self.facename = _self.The_query;
         }
       }
       FaceLibrarysData(
-        '',
-        '',
+        "",
+        "",
         _self.faceID,
-
         _self.facename,
         (_self.listQuery.page - 1) * _self.listQuery.limit,
         _self.listQuery.limit
       )
         .then(response => {
-          _self.table_loading = false
-          _self.total = response.data.result.totalCount
-          _self.tableData = response.data.result.list
+          _self.table_loading = false;
+          _self.total = response.data.result.totalCount;
+          _self.tableData = response.data.result.list;
 
           // 序号
         })
         .catch(function(error) {
-          _self.table_loading = false
+          _self.table_loading = false;
           // self.$message.error("网络好像有点问题！");
-        })
+        });
     },
     // 详情赋值
     open(servic_id) {
-      this.show = true
+      this.show = true;
 
-      this.servic_id = servic_id + ''
-      this.$refs.mychisds.details(servic_id)
+      this.servic_id = servic_id + "";
+      this.$refs.mychisds.details(servic_id);
     },
     // 修改
     revision(servic_id) {
-      this.servic_id = servic_id + ''
-      this.revisionshow = true
-      this.$refs.mychild.editordata(servic_id)
+      this.servic_id = servic_id + "";
+      this.revisionshow = true;
+      this.$refs.mychild.editordata(servic_id);
     },
     // 新增
     The_editor(servic_id) {
-      this.revisionshow = true
-      this.servic_id = servic_id + ''
-      this.$refs.mychild.editordata('')
+      this.revisionshow = true;
+      this.servic_id = servic_id + "";
+      this.$refs.mychild.editordata("");
     },
     // 删除
     deletes(ids) {
-      this.$prompt('请输入二次密码', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt("请输入二次密码", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
         lockScroll: false
       })
         .then(({ value }) => {
           let datas = {
-            id: ids + '',
+            id: ids + "",
             pwd: value
-          }
-          FaceLdelete(ids + '', value)
+          };
+          FaceLdelete(ids + "", value)
             .then(response => {
-              this.grabble()
-              this.$message.success('人脸库删除成功')
+              this.grabble();
+              this.$message.success("人脸库删除成功");
             })
             .catch(function(error) {
               // this.$message.error("人脸删除失败");
-            })
+            });
         })
         .catch(() => {
           this.$message({
-            type: 'info',
-            message: '取消删除'
-          })
-        })
+            type:"info",
+            message: "取消删除"
+          });
+        });
     },
     skip_face(datas) {
-      this.$store.commit('facedata/newImg', {
+      console.log(datas);
+      this.$store.commit("facedata/newImg", {
         deviceFaceLibraryCode: datas.deviceFaceLibraryCode,
         libCode: datas.libCode,
         id: datas.id,
         faceLibraryName: datas.faceLibraryName,
         time: datas.lastModifTime
-      })
+      });
     },
 
     skip_sdh(datas) {
-      this.$store.commit('facedata/newImg', {
+      this.$store.commit("facedata/newImg", {
         deviceFaceLibraryCode: datas.deviceFaceLibraryCode,
         libCode: datas.libCode,
         id: datas.id,
         faceLibraryName: datas.faceLibraryName,
         time: datas.lastModifTime
-      })
+      });
     },
     onSubmit() {
-      this.$message('submit!')
+      this.$message("submit!");
     },
     onCancel() {
       this.$message({
-        message: 'cancel!',
-        type: 'warning'
-      })
+        message: "cancel!",
+        type: "warning"
+      });
     },
     //      设置table头部的灰色
     tableHeader({ row, rowIndex }) {
       if (rowIndex === 0) {
-        return 'header-color'
+        return "header-color";
       }
     }
   },
   created() {
-    this.getData()
+    this.getData();
   }
-}
+};
 </script>
 <style  lang="scss" scoped>
 .list_div {

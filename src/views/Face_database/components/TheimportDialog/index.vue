@@ -220,7 +220,7 @@ export default {
     getStatus() {
       this.loading() // 启动定时器
       this.timer = setInterval(() => {
-        //创建定时器
+        // 创建定时器
         if (this.timerNum === 99) {
           // 设置的定时器时间为0后执行的操作
           this.timer && this.clearTimer() // 关闭定时器
@@ -383,12 +383,12 @@ export default {
             }
           })
           .catch(err => {
-            this.text = 100
+             this.text = 100
             this.timerNum = 0
             this.clearTimer()
             _self.$parent.grabble()
-            this.$refs.upload.clearFiles()
-            this.$refs.uploads.clearFiles()
+            // this.$refs.upload.clearFiles()
+            // this.$refs.uploads.clearFiles()
             _self.neidata = false
             // _self.innerVisible = false;
           })

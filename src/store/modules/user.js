@@ -69,7 +69,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ account: username, password: password, libCode: 'CN-430000-HBLIB' }).then(response => {
+      login({ account: username, password: password, libCode: 'CN-030000-TYLIB' }).then(response => {
         Cookies.set('USER_NAME', username)
         Cookies.set('PASS_WORD', password)
         Cookies.set('GET_TOKEN_TIME', Date.now())
